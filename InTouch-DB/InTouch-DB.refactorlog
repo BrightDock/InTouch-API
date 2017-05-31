@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="300ffbc3-315f-4055-ba00-7dcc29f7c86e" ChangeDateTime="05/28/2017 03:30:34">
+    <Property Name="ElementName" Value="[dbo].[Users].[Last_name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Users]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Patronymic" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="99f3ae09-0283-4e30-b3ad-821b1a4d5234" ChangeDateTime="05/28/2017 03:31:21">
+    <Property Name="ElementName" Value="[dbo].[Users].[Course]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Users]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Group" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="47b19d0e-2eb8-4b3a-bb12-2959e1b97a27" ChangeDateTime="05/28/2017 04:05:16">
+    <Property Name="ElementName" Value="[dbo].[SignalRConnections].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SignalRConnections]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ConnectionD" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ec277dd1-c1be-4ee7-9a93-14b8e6dc2050" ChangeDateTime="05/28/2017 04:07:20">
+    <Property Name="ElementName" Value="[dbo].[SignalRConnections].[UserAgent]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SignalRConnections]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="User_Agent" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3505a2ec-f16c-4ec9-aa34-9d3abf2b9ae4" ChangeDateTime="05/28/2017 04:07:25">
+    <Property Name="ElementName" Value="[dbo].[SignalRConnections].[ConnectionD]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SignalRConnections]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Connection_ID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8d62a785-a5c7-4310-bbd2-eb1ffc9da11e" ChangeDateTime="05/28/2017 04:10:34">
+    <Property Name="ElementName" Value="[dbo].[UserTypes].[user_type]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UserTypes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="User_type" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f8cf50a2-38d8-488b-bf9c-93a56f647474" ChangeDateTime="05/28/2017 04:50:29">
+    <Property Name="ElementName" Value="[dbo].[Users].[Group]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Users]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Student_group" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c0f64ae2-9b68-4236-8e1d-b08a347129cc" ChangeDateTime="05/28/2017 07:29:21">
+    <Property Name="ElementName" Value="[dbo].[Difficulty_of_questions].[difficulty_level]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Difficulty_of_questions]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Difficulty_level" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e48e2dec-2a92-4f83-bbeb-463abe0667ec" ChangeDateTime="05/28/2017 13:46:16">
+    <Property Name="ElementName" Value="[dbo].[Passed_tests].[test_ID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Passed_tests]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Test_ID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="284e7e9b-88d1-4fa0-8d1e-de94366c0936" ChangeDateTime="05/28/2017 13:49:43">
+    <Property Name="ElementName" Value="[dbo].[Passed_tests].[Selected_answer]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Passed_tests]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Selected_answer_ID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a38816fb-5d09-4794-a33b-ad3ea6f51b37" ChangeDateTime="05/28/2017 13:58:31">
+    <Property Name="ElementName" Value="[dbo].[SignalRConnections].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SignalRConnections]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ConnectionID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f26405f9-cc77-4778-873e-b7af85940162" ChangeDateTime="05/28/2017 13:58:36">
+    <Property Name="ElementName" Value="[dbo].[SignalRConnections].[ConnectionID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SignalRConnections]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Connection_ID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7ae2ec4c-ad2e-4907-8b96-1326b7f2b98a" ChangeDateTime="05/28/2017 15:50:51">
+    <Property Name="ElementName" Value="[dbo].[Question_option].[Test_Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Question_option]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Test_ID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="019c2eb9-54a0-4cdf-8120-859e82e8510f" ChangeDateTime="05/28/2017 15:51:48">
+    <Property Name="ElementName" Value="[dbo].[Question_option].[Test_ID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Question_option]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Question_ID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="da73d846-9006-4c6f-acdb-cf4b4dcb6cee" ChangeDateTime="05/28/2017 15:52:29">
+    <Property Name="ElementName" Value="[dbo].[Question_options].[Text]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Question_options]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Option_text" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ebe5b9d9-bf66-4245-9c50-0f0f4255d9a9" ChangeDateTime="05/28/2017 18:00:23">
+    <Property Name="ElementName" Value="[dbo].[Users].[Login]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Users]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="University_certificate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="cccc2f57-b963-4081-8575-e132f4338f1e" ChangeDateTime="05/28/2017 18:14:14">
+    <Property Name="ElementName" Value="[dbo].[Groups].[Name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Groups]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Number" />
+  </Operation>
+</Operations>

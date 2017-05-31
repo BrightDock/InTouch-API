@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InTouch-API", "InTouch-API\InTouch-API.csproj", "{ADC284B0-64CC-4C24-809D-0FE3B243C1B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InTouchWEBClient", "InTouchWEBClient\InTouchWEBClient.csproj", "{9262F9A3-0D31-4B73-83DC-11D08E6B8317}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "InTouch-DB", "InTouch-DB\InTouch-DB.sqlproj", "{6FF69799-57DD-459B-A05F-6F1A002B3975}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ADC284B0-64CC-4C24-809D-0FE3B243C1B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADC284B0-64CC-4C24-809D-0FE3B243C1B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADC284B0-64CC-4C24-809D-0FE3B243C1B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADC284B0-64CC-4C24-809D-0FE3B243C1B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9262F9A3-0D31-4B73-83DC-11D08E6B8317}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9262F9A3-0D31-4B73-83DC-11D08E6B8317}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9262F9A3-0D31-4B73-83DC-11D08E6B8317}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9262F9A3-0D31-4B73-83DC-11D08E6B8317}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FF69799-57DD-459B-A05F-6F1A002B3975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FF69799-57DD-459B-A05F-6F1A002B3975}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FF69799-57DD-459B-A05F-6F1A002B3975}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{6FF69799-57DD-459B-A05F-6F1A002B3975}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FF69799-57DD-459B-A05F-6F1A002B3975}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FF69799-57DD-459B-A05F-6F1A002B3975}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
