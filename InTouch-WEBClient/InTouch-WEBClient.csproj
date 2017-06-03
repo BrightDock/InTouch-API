@@ -234,11 +234,12 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\_viewstart.cshtml" />
-    <Content Include="Views\Layout\_Lauout.cshtml" />
+    <Content Include="Views\Shared\_Lauout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Users\GetUsers.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\GetStudents.cshtml" />
+    <Content Include="Views\Users\GetProfessors.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -251,12 +252,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\InTouch-API\InTouch-API.csproj">
-      <Project>{ADC284B0-64CC-4C24-809D-0FE3B243C1B1}</Project>
-      <Name>InTouch-API</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

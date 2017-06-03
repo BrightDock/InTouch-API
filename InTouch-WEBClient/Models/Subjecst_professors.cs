@@ -12,13 +12,9 @@ namespace InTouch_WEBClient.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Subjecst_professors
+    public class Subjecst_professors
     {
-        public System.Guid Id { get; set; }
-        public System.Guid Subject { get; set; }
-        public System.Guid Professor { get; set; }
-    
-        public virtual Subjects Subjects { get; set; }
-        public virtual Users Users { get; set; }
+        public Users Professor { get; set; }
+        public IEnumerable<Subjecst_professors> Subjects { get; set; }
     }
 }

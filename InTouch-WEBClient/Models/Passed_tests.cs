@@ -12,7 +12,7 @@ namespace InTouch_WEBClient.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Passed_tests
+    public class Passed_tests
     {
         public System.Guid Id { get; set; }
         public System.Guid Test_ID { get; set; }

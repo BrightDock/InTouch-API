@@ -1,0 +1,31 @@
+﻿@model IEnumerable<InTouch_WEBClient.Models.Subjecst_professors>
+@{
+    ViewBag.Title = "GetProfessors";
+    Layout = null;
+}
+
+<header></header>
+<content>
+    <h4>@ViewBag.usersCount</h4>
+    @foreach (var item in Model.ToList())
+    {
+        <div>
+            <span>
+                @item.Professor.Name
+            </span>
+            <span>
+                @item.Professor.Surname
+            </span>
+            <span>
+                @item.Professor.University
+            </span>
+            <span>
+                @item.Professor.Name
+            </span>
+        </div>
+    }
+</content>
+<footer></footer>
+
+
+

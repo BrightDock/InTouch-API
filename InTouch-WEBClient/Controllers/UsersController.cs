@@ -1,4 +1,4 @@
-﻿using InTouch_API.Models;
+﻿using InTouch_WEBClient.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -35,7 +35,7 @@ namespace InTouch_WEBClient.Controllers
             if (responseMessage.IsSuccessStatusCode)
             {
                 var responseData = responseMessage.Content.ReadAsStringAsync().Result;
-
+                
                 var jsonSettings = new JsonSerializerSettings();
                 jsonSettings.NullValueHandling = NullValueHandling.Include;
                 var Users = JsonConvert.DeserializeObject<List<UserUniversity>>(responseData, jsonSettings);
@@ -59,6 +59,26 @@ namespace InTouch_WEBClient.Controllers
                 var jsonSettings = new JsonSerializerSettings();
                 jsonSettings.NullValueHandling = NullValueHandling.Include;
                 var Users = JsonConvert.DeserializeObject<List<UserGroupUniversity>>(responseData, jsonSettings);
+
+                ViewBag.usersCount = responseData;
+
+                return PartialView(Users);
+            }
+            return View("Error");
+        }
+
+        [Route("GetProfessors")]
+        [HttpGet]
+        public async Task<ActionResult> GetProfessors()
+        {
+            HttpResponseMessage responseMessage = await client.GetAsync(url + "users/GetProfessors/");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+
+                var jsonSettings = new JsonSerializerSettings();
+                jsonSettings.NullValueHandling = NullValueHandling.Include;
+                var Users = JsonConvert.DeserializeObject<List<Subjecst_professors>>(responseData, jsonSettings);
 
                 ViewBag.usersCount = responseData;
 
