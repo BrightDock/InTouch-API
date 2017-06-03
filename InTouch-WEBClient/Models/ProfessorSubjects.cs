@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace InTouch_API.Models
+namespace InTouch_WEBClient.Models
 {
     public class ProfessorSubjects
     {

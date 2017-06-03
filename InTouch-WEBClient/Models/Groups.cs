@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace InTouch_WEBClient
+namespace InTouch_WEBClient.Models
 {
     using System;
     using System.Collections.Generic;

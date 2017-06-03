@@ -203,6 +203,7 @@
     <Compile Include="Models\Passed_tests.cs" />
     <Compile Include="Models\Posts.cs" />
     <Compile Include="Models\Post_types.cs" />
+    <Compile Include="Models\ProfessorSubjects.cs" />
     <Compile Include="Models\Questions.cs" />
     <Compile Include="Models\Question_options.cs" />
     <Compile Include="Models\Question_types.cs" />
@@ -250,6 +251,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InTouch-API\InTouch-API.csproj">
+      <Project>{ADC284B0-64CC-4C24-809D-0FE3B243C1B1}</Project>
+      <Name>InTouch-API</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

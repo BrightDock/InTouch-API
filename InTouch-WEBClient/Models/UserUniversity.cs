@@ -1,4 +1,4 @@
-﻿namespace InTouch_WEBClient
+﻿namespace InTouch_WEBClient.Models
 {
     public class UserUniversity
     {

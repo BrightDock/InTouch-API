@@ -1,4 +1,4 @@
-﻿@model IEnumerable<InTouch_WEBClient.UserGroupUniversity>
+﻿@model IEnumerable<InTouch_WEBClient.Models.UserGroupUniversity>
 @{
     ViewBag.Title = "GetStudents";
     Layout = null;
@@ -23,10 +23,10 @@
                 @item.University.Name
             </span>
             <ul>
-                @foreach (var subject in item.)
+                @foreach (var subject in item.SubjectsInLearn)
                 {
                     <li>
-                        @subject.name
+                        @subject.Subjects.Name
                     </li>
                 }
             </ul>

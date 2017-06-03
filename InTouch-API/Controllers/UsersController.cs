@@ -44,11 +44,29 @@ namespace InTouch_API.Controllers
                     University => University.Id,
                     (StudentStudentGroup, StudentUniversity) =>
                         new { studentStudentGroup = StudentStudentGroup, studentUnivirsity = StudentUniversity })
+                .Join(Db.SubjectsLearn,
+                    Student => Student.studentStudentGroup.Student.Id,
+                    Subject => Subject.Subject_ID,
+                    (Student, Subject) =>
+                        new { student = Student, subjects = Subject })
+                .Join(Db.Tests,
+                    StudentGroup => StudentGroup.student.studentStudentGroup.StudentGroup.Id,
+                    Tests => Tests.Subject,
+                    (StudentGroup, Tests) =>
+                        new { studentGroup = StudentGroup, tests = Tests })
+                .Join(Db.Passed_tests,
+                    Student => Student.studentGroup.student.studentStudentGroup.Student.Id,
+                    PassedTests => PassedTests.User_ID,
+                    (Student, PassedTests) =>
+                        new { student = Student, passedTests = PassedTests })
                 .Select(student => new UserGroupUniversity()
                 {
-                    User = student.studentStudentGroup.Student,
-                    Group = student.studentStudentGroup.StudentGroup,
-                    University = student.studentUnivirsity
+                    User = student.student.studentGroup.student.studentStudentGroup.Student,
+                    Group = student.student.studentGroup.student.studentStudentGroup.StudentGroup,
+                    University = student.student.studentGroup.student.studentUnivirsity,
+                    SubjectsInLearn = student.student.studentGroup.subjects.Subjects.SubjectsLearn,
+                    AllTests = student.student.tests.Users.Tests,
+                    Passed_tests = student.passedTests.Tests.Passed_tests
                 });
             return usersList.ToList();
         }
@@ -69,7 +87,7 @@ namespace InTouch_API.Controllers
                 .Select(professor => new ProfessorSubjects()
                 {
                     Professor = professor.professor.SubjectProfessor.Users,
-                    Subjects = professor.professor.Subject
+                    Subjects = professor.subjectProfessor.Subjecst_professors.AsEnumerable()
                 });
             return usersList.ToList();
         }
