@@ -44,5 +44,6 @@ namespace InTouch_API
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Users_additions> Users_additions { get; set; }
         public virtual DbSet<C__RefactorLog> C__RefactorLog { get; set; }
+        public virtual DbSet<Subjecst_professors> Subjecst_professors { get; set; }
     }
 }

@@ -94,6 +94,14 @@
           <Property Name="Question_ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Student_ID" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
+        <EntityType Name="Subjecst_professors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Subject" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Professor" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <EntityType Name="Subjects">
           <Key>
             <PropertyRef Name="Id" />
@@ -177,6 +185,8 @@
           <Property Name="Object" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Value" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "InTouch_DB.sys.database_firewall_rules" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <Association Name="FK_Passed_tests_Question_options">
           <End Role="Question_options" Type="Self.Question_options" Multiplicity="1" />
           <End Role="Passed_tests" Type="Self.Passed_tests" Multiplicity="*" />
@@ -333,6 +343,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Subjecst_professors_Subjects">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
+          <End Role="Subjecst_professors" Type="Self.Subjecst_professors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subjecst_professors">
+              <PropertyRef Name="Subject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subjecst_professors_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Subjecst_professors" Type="Self.Subjecst_professors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subjecst_professors">
+              <PropertyRef Name="Professor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SubjectsLearn_Subjects">
           <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
           <End Role="SubjectsLearn" Type="Self.SubjectsLearn" Multiplicity="*" />
@@ -441,6 +475,7 @@
           <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SignalRConnections" EntityType="Self.SignalRConnections" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student_answers" EntityType="Self.Student_answers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subjecst_professors" EntityType="Self.Subjecst_professors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubjectsLearn" EntityType="Self.SubjectsLearn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tests" EntityType="Self.Tests" Schema="dbo" store:Type="Tables" />
@@ -500,6 +535,14 @@
           <AssociationSet Name="FK_Student_answers_Users" Association="Self.FK_Student_answers_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Student_answers" EntitySet="Student_answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subjecst_professors_Subjects" Association="Self.FK_Subjecst_professors_Subjects">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Subjecst_professors" EntitySet="Subjecst_professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subjecst_professors_Users" Association="Self.FK_Subjecst_professors_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Subjecst_professors" EntitySet="Subjecst_professors" />
           </AssociationSet>
           <AssociationSet Name="FK_SubjectsLearn_Subjects" Association="Self.FK_SubjectsLearn_Subjects">
             <End Role="Subjects" EntitySet="Subjects" />
@@ -653,6 +696,7 @@
           <NavigationProperty Name="Posts" Relationship="Self.FK_Posts_Subjects" FromRole="Subjects" ToRole="Posts" />
           <NavigationProperty Name="SubjectsLearn" Relationship="Self.FK_SubjectsLearn_Subjects" FromRole="Subjects" ToRole="SubjectsLearn" />
           <NavigationProperty Name="Tests" Relationship="Self.FK_Tests_Subjects" FromRole="Subjects" ToRole="Tests" />
+          <NavigationProperty Name="Subjecst_professors" Relationship="InTouch_DBModel.FK_Subjecst_professors_Subjects" FromRole="Subjects" ToRole="Subjecst_professors" />
         </EntityType>
         <EntityType Name="SubjectsLearn">
           <Key>
@@ -737,6 +781,7 @@
           <NavigationProperty Name="Tests" Relationship="Self.FK_Tests_Users" FromRole="Users" ToRole="Tests" />
           <NavigationProperty Name="Universities" Relationship="Self.FK_Users_Universities" FromRole="Users" ToRole="Universities" />
           <NavigationProperty Name="User_types" Relationship="Self.FK_Users_User_types" FromRole="Users" ToRole="User_types" />
+          <NavigationProperty Name="Subjecst_professors" Relationship="InTouch_DBModel.FK_Subjecst_professors_Users" FromRole="Users" ToRole="Subjecst_professors" />
         </EntityType>
         <EntityType Name="Users_additions">
           <Key>
@@ -1090,7 +1135,16 @@
             <End Role="Tests" EntitySet="Tests" />
             <End Role="Passed_tests" EntitySet="Passed_tests" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="Subjecst_professors" EntityType="InTouch_DBModel.Subjecst_professors" />
+          <AssociationSet Name="FK_Subjecst_professors_Subjects" Association="InTouch_DBModel.FK_Subjecst_professors_Subjects">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Subjecst_professors" EntitySet="Subjecst_professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subjecst_professors_Users" Association="InTouch_DBModel.FK_Subjecst_professors_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Subjecst_professors" EntitySet="Subjecst_professors" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="C__RefactorLog">
           <Key>
             <PropertyRef Name="OperationKey" />
@@ -1109,7 +1163,41 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <EntityType Name="Subjecst_professors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Subject" Type="Guid" Nullable="false" />
+          <Property Name="Professor" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Subjects" Relationship="InTouch_DBModel.FK_Subjecst_professors_Subjects" FromRole="Subjecst_professors" ToRole="Subjects" />
+          <NavigationProperty Name="Users" Relationship="InTouch_DBModel.FK_Subjecst_professors_Users" FromRole="Subjecst_professors" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_Subjecst_professors_Subjects">
+          <End Type="InTouch_DBModel.Subjects" Role="Subjects" Multiplicity="1" />
+          <End Type="InTouch_DBModel.Subjecst_professors" Role="Subjecst_professors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subjecst_professors">
+              <PropertyRef Name="Subject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subjecst_professors_Users">
+          <End Type="InTouch_DBModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="InTouch_DBModel.Subjecst_professors" Role="Subjecst_professors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subjecst_professors">
+              <PropertyRef Name="Professor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1303,6 +1391,15 @@
             <EntityTypeMapping TypeName="InTouch_DBModel.C__RefactorLog">
               <MappingFragment StoreEntitySet="__RefactorLog">
                 <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subjecst_professors">
+            <EntityTypeMapping TypeName="InTouch_DBModel.Subjecst_professors">
+              <MappingFragment StoreEntitySet="Subjecst_professors">
+                <ScalarProperty Name="Professor" ColumnName="Professor" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

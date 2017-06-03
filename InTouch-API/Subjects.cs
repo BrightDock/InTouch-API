@@ -20,6 +20,7 @@ namespace InTouch_API
             this.Posts = new HashSet<Posts>();
             this.SubjectsLearn = new HashSet<SubjectsLearn>();
             this.Tests = new HashSet<Tests>();
+            this.Subjecst_professors = new HashSet<Subjecst_professors>();
         }
     
         public System.Guid Id { get; set; }
@@ -32,5 +33,7 @@ namespace InTouch_API
         public virtual ICollection<SubjectsLearn> SubjectsLearn { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tests> Tests { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Subjecst_professors> Subjecst_professors { get; set; }
     }
 }

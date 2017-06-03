@@ -1,0 +1,38 @@
+﻿@model IEnumerable<InTouch_WEBClient.UserGroupUniversity>
+@{
+    ViewBag.Title = "GetStudents";
+    Layout = null;
+}
+
+<header></header>
+<content>
+    <h4>@ViewBag.usersCount</h4>
+    @foreach (var item in Model.ToList())
+    {
+        <div>
+            <span>
+                @item.User.Name
+            </span>
+            <span>
+                @item.User.Surname
+            </span>
+            <span>
+                @item.User.Student_group
+            </span>
+            <span>
+                @item.University.Name
+            </span>
+            <ul>
+                @foreach (var subject in item.)
+                {
+                    <li>
+                        @subject.name
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</content>
+<footer></footer>
+
+

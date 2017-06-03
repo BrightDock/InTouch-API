@@ -1,0 +1,30 @@
+﻿@model IEnumerable<InTouch_WEBClient.UserUniversity>
+@{
+    ViewBag.Title = "GetUsers";
+    Layout = null;
+}
+
+<header>
+
+</header>
+<content>
+    <h4>@ViewBag.usersCount</h4>
+    @foreach (var item in Model.ToList())
+    {
+        <div>
+            <span>
+                @item.User.Name
+            </span>
+            <span>
+                @item.User.Surname
+            </span>
+            <span>
+                @item.University.Name
+            </span>
+        </div>
+    }
+</content>
+<footer>
+
+</footer>
+
