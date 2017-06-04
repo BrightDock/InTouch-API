@@ -13,7 +13,7 @@ namespace InTouch_WEBClient.Controllers
     {
         HttpClient client;
         //The URL of the WEB API Service
-        string url = "http://localhost:51533/api/";
+        string url = "http://diploma-intouchapi.azurewebsites.net/api/";
         // GET: Users
         public UsersController()
         {
@@ -44,7 +44,7 @@ namespace InTouch_WEBClient.Controllers
 
                 return PartialView(Users);
             }
-            return View("Error");
+            return View("Error", responseMessage);
         }
 
         [Route("GetStudents")]

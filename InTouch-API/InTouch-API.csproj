@@ -26,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <ApplicationInsightsResourceId>/subscriptions/84756552-38d5-4c7a-844e-ffd1957d4e23/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/InTouch-API</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/84756552-38d5-4c7a-844e-ffd1957d4e23/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/InTouch-API</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
