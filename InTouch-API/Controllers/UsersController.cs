@@ -33,41 +33,31 @@ namespace InTouch_API.Controllers
 
         [Route("GetStudents")]
         [HttpGet]
-        public List<UserGroupUniversity> GetStudents()
+        public List<UserGroupUniversity> GetStudents(string userID = null)
         {
-            var usersList = Db.Users.Join(Db.Groups,
-                user => user.Student_group,
-                group => group.Id,
-                (user, group) => new { Student = user, StudentGroup = group })
-                .Join(Db.Universities,
-                    student => student.Student.University,
-                    University => University.Id,
-                    (StudentStudentGroup, StudentUniversity) =>
-                        new { studentStudentGroup = StudentStudentGroup, studentUnivirsity = StudentUniversity })
-                .Join(Db.SubjectsLearn,
-                    Student => Student.studentStudentGroup.Student.Id,
-                    Subject => Subject.Subject_ID,
-                    (Student, Subject) =>
-                        new { student = Student, subjects = Subject })
-                .Join(Db.Tests,
-                    StudentGroup => StudentGroup.student.studentStudentGroup.StudentGroup.Id,
-                    Tests => Tests.Subject,
-                    (StudentGroup, Tests) =>
-                        new { studentGroup = StudentGroup, tests = Tests })
-                .Join(Db.Passed_tests,
-                    Student => Student.studentGroup.student.studentStudentGroup.Student.Id,
-                    PassedTests => PassedTests.User_ID,
-                    (Student, PassedTests) =>
-                        new { student = Student, passedTests = PassedTests })
+            Guid uID = new Guid();
+            Guid.TryParse(userID, out uID);
+            var usersList = Db.Users.Join(Db.Universities,
+                    student => student.University,
+                    university => university.Id,
+                    (student, university) =>
+                        new { Student = student, University = university })
+                    .Join(Db.Groups,
+                        student => student.Student.Student_group,
+                        group => group.Id,
+                        (student, group) =>
+                            new { Student = student, Group = group })
                 .Select(student => new UserGroupUniversity()
                 {
-                    User = student.student.studentGroup.student.studentStudentGroup.Student,
-                    Group = student.student.studentGroup.student.studentStudentGroup.StudentGroup,
-                    University = student.student.studentGroup.student.studentUnivirsity,
-                    SubjectsInLearn = student.student.studentGroup.subjects.Subjects.SubjectsLearn,
-                    AllTests = student.student.tests.Users.Tests,
-                    Passed_tests = student.passedTests.Tests.Passed_tests
-                });
+                    User = student.Student.Student,
+                    Group = student.Group,
+                    SubjectsInLearn = student.Student.Student.Groups.Subjects_learn,
+                    University = student.Student.University,
+                    AllTests = Db.Tests.Where(test => 
+                    test.Subjects.Subjects_learn.Intersect(student.Student.Student.Groups.Subjects_learn
+                        .Where(subject => subject.Group_ID == student.Group.Id)).Count() > 0),
+                    Passed_tests = student.Student.Student.Passed_tests
+                }).Where(student => student.User.Id == uID || userID.Equals(null));
             return usersList.ToList();
         }
 
@@ -75,19 +65,17 @@ namespace InTouch_API.Controllers
         [HttpGet]
         public List<ProfessorSubjects> GetProfessors()
         {
-            var usersList = Db.Subjects.Join(Db.Subjecst_professors,
-                subject => subject.Id,
-                subjectProfessor => subjectProfessor.Id,
-                (subject, subjectProfessor) => new { Subject = subject, SubjectProfessor = subjectProfessor })
-                .Join(Db.Users,
-                    SubjectProfessor => SubjectProfessor.SubjectProfessor.Professor,
-                    Professor => Professor.Id,
-                    (Professor, SubjectProfessor) =>
-                        new { professor = Professor, subjectProfessor = SubjectProfessor })
-                .Select(professor => new ProfessorSubjects()
-                {
-                    Professor = professor.professor.SubjectProfessor.Users,
-                    Subjects = professor.subjectProfessor.Subjecst_professors.AsEnumerable()
+            var usersList = Db.Users.Join(Db.Universities,
+                    professor => professor.University,
+                    University => University.Id,
+                    (Professor, ProfessorUniversity) =>
+                        new { professor = Professor, professorUniversity = ProfessorUniversity })
+                .Where(professor => professor.professor.User_type == 2)
+                .Select(professorProfessorUniversity => new ProfessorSubjects{
+                    Professor = professorProfessorUniversity.professor,
+                    University = professorProfessorUniversity.professorUniversity,
+                    Subjects = professorProfessorUniversity.professor.Subjecst_professors
+                        .Where(subject => subject.Professor == professorProfessorUniversity.professor.Id)
                 });
             return usersList.ToList();
         }

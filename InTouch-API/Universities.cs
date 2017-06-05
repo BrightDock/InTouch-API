@@ -17,6 +17,7 @@ namespace InTouch_API
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Universities()
         {
+            this.Groups = new HashSet<Groups>();
             this.Users = new HashSet<Users>();
         }
     
@@ -25,6 +26,8 @@ namespace InTouch_API
         public string Logo { get; set; }
         public string About_info { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Groups> Groups { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Users> Users { get; set; }
     }

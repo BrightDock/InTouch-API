@@ -1005,7 +1005,7 @@
     <Compile Include="Models\Student_answers.cs" />
     <Compile Include="Models\Subjecst_professors.cs" />
     <Compile Include="Models\Subjects.cs" />
-    <Compile Include="Models\SubjectsLearn.cs" />
+    <Compile Include="Models\Subjects_learn.cs" />
     <Compile Include="Models\Tests.cs" />
     <Compile Include="Models\Tests_additions.cs" />
     <Compile Include="Models\Universities.cs" />

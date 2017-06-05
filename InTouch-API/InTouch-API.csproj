@@ -335,7 +335,7 @@
     <Compile Include="Subjects.cs">
       <DependentUpon>InTouch_DB.tt</DependentUpon>
     </Compile>
-    <Compile Include="SubjectsLearn.cs">
+    <Compile Include="Subjects_learn.cs">
       <DependentUpon>InTouch_DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Tests.cs">

@@ -12,13 +12,13 @@ namespace InTouch_WEBClient.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class SubjectsLearn
+    public partial class Subjects_learn
     {
         public System.Guid Id { get; set; }
         public System.Guid Subject_ID { get; set; }
-        public System.Guid User_ID { get; set; }
+        public System.Guid Group_ID { get; set; }
     
+        public virtual Groups Groups { get; set; }
         public virtual Subjects Subjects { get; set; }
-        public virtual Users Users { get; set; }
     }
 }

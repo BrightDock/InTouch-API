@@ -12,7 +12,7 @@ namespace InTouch_WEBClient.Models
     using System;
     using System.Collections.Generic;
     
-    public class Passed_tests
+    public partial class Passed_tests
     {
         public System.Guid Id { get; set; }
         public System.Guid Test_ID { get; set; }
@@ -22,7 +22,7 @@ namespace InTouch_WEBClient.Models
     
         public virtual Question_options Question_options { get; set; }
         public virtual Questions Questions { get; set; }
-        public virtual Users Users { get; set; }
         public virtual Tests Tests { get; set; }
+        public virtual Users Users { get; set; }
     }
 }

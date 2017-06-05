@@ -1,4 +1,4 @@
-﻿@model IEnumerable<InTouch_WEBClient.Models.Subjecst_professors>
+﻿@model IEnumerable<InTouch_WEBClient.Models.ProfessorSubjects>
 @{
     ViewBag.Title = "GetProfessors";
     Layout = null;
@@ -6,22 +6,53 @@
 
 <header></header>
 <content>
-    <h4>@ViewBag.usersCount</h4>
     @foreach (var item in Model.ToList())
     {
         <div>
-            <span>
-                @item.Professor.Name
-            </span>
-            <span>
-                @item.Professor.Surname
-            </span>
-            <span>
-                @item.Professor.University
-            </span>
-            <span>
-                @item.Professor.Name
-            </span>
+            <h4>
+                Ф.И.О.:
+                <span>
+                    @item.Professor.Surname
+                </span>
+                <span>
+                    @item.Professor.Name
+                </span>
+                <span>
+                    @item.Professor.Patronymic
+                </span>
+            </h4>
+            <p>
+                Университет: @item.University.Name
+            </p>
+            <div class="">
+                <span>
+                    Предметы @item.Subjects.Count():
+                </span>
+                <ul>
+                    @foreach (var subject in item.Subjects)
+                    {
+                        <li>@subject.Subjects.Name</li>
+                    }
+                </ul>
+            </div>
+            <div class="">
+                <span>
+                    Тесты: (@item.Professor.Tests.Count()):
+                </span>
+                <ul>
+                    @foreach (var test in item.Professor.Tests)
+                    {
+                        <li>
+                            <b>Название: @test.Name</b>
+                            <p>Предмет: @test.Subjects.Name</p>
+                            <p>
+                                <label>Дата начала: @test.Date_start</label>
+                                <label>Дата окнчания: @test.Date_end</label>
+                            </p>
+                        </li>
+                    }
+                </ul>
+            </div>
         </div>
     }
 </content>

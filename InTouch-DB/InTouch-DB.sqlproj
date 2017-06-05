@@ -71,7 +71,7 @@
     <Build Include="Groups.sql" />
     <Build Include="Tests_additions.sql" />
     <Build Include="Subjects.sql" />
-    <Build Include="SubjectsLearn.sql" />
+    <Build Include="Subjects_learn.sql" />
     <Build Include="Difficulty_of_questions.sql" />
     <Build Include="Passed_tests.sql" />
     <Build Include="SignalRConnections.sql" />

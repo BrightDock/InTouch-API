@@ -4,68 +4,71 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d29f462e63d8484f8163e12ecc70cfcc" Name="Diagram1" DisplayType="true" ShowGrid="false" ZoomLevel="93">
+      <Diagram DiagramId="d29f462e63d8484f8163e12ecc70cfcc" Name="Diagram1" DisplayType="true" ShowGrid="false" ZoomLevel="98">
         <EntityTypeShape EntityType="InTouch_DBModel.Difficulty_of_questions" Width="1.5" PointX="1.5" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="InTouch_DBModel.Groups" Width="1.5" PointX="5.5" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="InTouch_DBModel.Passed_tests" Width="1.5" PointX="5.5" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="InTouch_DBModel.Post_types" Width="1.5" PointX="13.125" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="InTouch_DBModel.Passed_tests" Width="1.5" PointX="5.5" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InTouch_DBModel.Post_types" Width="1.5" PointX="13" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="InTouch_DBModel.Posts" Width="1.5" PointX="11.125" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="InTouch_DBModel.Question_options" Width="1.5" PointX="3.5" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InTouch_DBModel.Question_options" Width="1.5" PointX="3.5" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="InTouch_DBModel.Question_types" Width="1.5" PointX="1.5" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="InTouch_DBModel.Questions" Width="1.5" PointX="3.5" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="InTouch_DBModel.SignalRConnections" Width="1.5" PointX="9.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="InTouch_DBModel.SignalRConnections" Width="1.5" PointX="7.375" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="InTouch_DBModel.Student_answers" Width="1.5" PointX="5.5" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="InTouch_DBModel.Subjects" Width="1.5" PointX="13.125" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="InTouch_DBModel.SubjectsLearn" Width="1.5" PointX="11.125" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="InTouch_DBModel.Tests" Width="1.5" PointX="9.25" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="InTouch_DBModel.Tests_additions" Width="1.5" PointX="13.125" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="InTouch_DBModel.Universities" Width="1.5" PointX="1.5" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="InTouch_DBModel.User_types" Width="1.5" PointX="3.5" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="InTouch_DBModel.Users" Width="1.5" PointX="7.375" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="InTouch_DBModel.Users_additions" Width="1.5" PointX="13.125" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InTouch_DBModel.Subjects" Width="1.5" PointX="11.125" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="InTouch_DBModel.Tests" Width="1.5" PointX="13" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="InTouch_DBModel.Tests_additions" Width="1.5" PointX="11.125" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InTouch_DBModel.Universities" Width="1.5" PointX="3.5" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="InTouch_DBModel.User_types" Width="1.5" PointX="1.5" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="InTouch_DBModel.Users_additions" Width="1.5" PointX="9.25" PointY="2" IsExpanded="true" />
         <AssociationConnector Association="InTouch_DBModel.FK_Questions_Difficulty_of_questions" ManuallyRouted="false" />
-        <AssociationConnector Association="InTouch_DBModel.FK_Users_Groups" ManuallyRouted="false" >
-          <ConnectorPoint PointX="2.125" PointY="3.5956835937499996" />
-          <ConnectorPoint PointX="2.125" PointY="4.0454316411071654" />
-          <ConnectorPoint PointX="7" PointY="4.0454316411071654" />
-          <ConnectorPoint PointX="7" PointY="5.1534297343749955" />
-          <ConnectorPoint PointX="7.375" PointY="5.1534297343749955" />
-        </AssociationConnector>
         <AssociationConnector Association="InTouch_DBModel.FK_Passed_tests_Question_options" ManuallyRouted="false" />
         <AssociationConnector Association="InTouch_DBModel.FK_Passed_tests_Questions" ManuallyRouted="false" />
-        <AssociationConnector Association="InTouch_DBModel.FK_Passed_tests_Users" ManuallyRouted="false" />
         <AssociationConnector Association="InTouch_DBModel.FK_Posts_Post_types" ManuallyRouted="false" />
-        <AssociationConnector Association="InTouch_DBModel.FK_Posts_Subjects" ManuallyRouted="true" >
-          <ConnectorPoint PointX="13.973928467501562" PointY="7.75" />
-          <ConnectorPoint PointX="13.973928467501562" PointY="7.5" />
-          <ConnectorPoint PointX="12.875" PointY="7.5" />
-          <ConnectorPoint PointX="12.625" PointY="4.07533681918384" />
+        <AssociationConnector Association="InTouch_DBModel.FK_Posts_Subjects" ManuallyRouted="false" >
         </AssociationConnector>
-        <AssociationConnector Association="InTouch_DBModel.FK_Posts_Users" ManuallyRouted="false" />
         <AssociationConnector Association="InTouch_DBModel.FK_Tests_Posts" ManuallyRouted="false" >
         </AssociationConnector>
         <AssociationConnector Association="InTouch_DBModel.FK_Question_options_Questions" ManuallyRouted="false" />
         <AssociationConnector Association="InTouch_DBModel.FK_Questions_Question_types" ManuallyRouted="false" />
         <AssociationConnector Association="InTouch_DBModel.FK_Student_answers_Questions" ManuallyRouted="false" />
-        <AssociationConnector Association="InTouch_DBModel.FK_SignalRConnections_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="InTouch_DBModel.FK_Student_answers_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="InTouch_DBModel.FK_SubjectsLearn_Subjects" ManuallyRouted="false" />
-        <AssociationConnector Association="InTouch_DBModel.FK_Tests_Subjects" ManuallyRouted="false" />
-        <AssociationConnector Association="InTouch_DBModel.FK_SubjectsLearn_Users" ManuallyRouted="false" >
+        <AssociationConnector Association="InTouch_DBModel.FK_Tests_Subjects" ManuallyRouted="false" >
         </AssociationConnector>
-        <AssociationConnector Association="InTouch_DBModel.FK_Tests_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="InTouch_DBModel.FK_Users_Universities" ManuallyRouted="false" >
+        <AssociationConnector Association="InTouch_DBModel.FK_Passed_tests_Tests" ManuallyRouted="true" >
+          <ConnectorPoint PointX="13.930801269824434" PointY="8.40330078125" />
+          <ConnectorPoint PointX="13.930801269824434" PointY="9.93084236439509" />
+          <ConnectorPoint PointX="6.2833610528534543" PointY="9.93084236439509" />
+          <ConnectorPoint PointX="6.2833610528534543" PointY="9.4994921875" />
         </AssociationConnector>
-        <AssociationConnector Association="InTouch_DBModel.FK_Users_User_types" ManuallyRouted="true" >
-          <ConnectorPoint PointX="4.25" PointY="3.59568359375" />
-          <ConnectorPoint PointX="4.25" PointY="3.7547091316944656" />
-          <ConnectorPoint PointX="7.375" PointY="3.7547091316944656" />
+        <EntityTypeShape EntityType="InTouch_DBModel.Subjecst_professors" Width="1.5" PointX="9.25" PointY="7.5" />
+        <AssociationConnector Association="InTouch_DBModel.FK_Subjecst_professors_Subjects" ManuallyRouted="false" >
         </AssociationConnector>
-        <AssociationConnector Association="InTouch_DBModel.FK_Passed_tests_Tests" ManuallyRouted="false" >
+        <AssociationConnector Association="InTouch_DBModel.FK_Groups_Universities" />
+        <EntityTypeShape EntityType="InTouch_DBModel.Subjects_learn" Width="1.5" PointX="9.25" PointY="5" />
+        <EntityTypeShape EntityType="InTouch_DBModel.Users" Width="1.5" PointX="7.375" PointY="2.25" />
+        <AssociationConnector Association="InTouch_DBModel.FK_Subjects_learn_Groups" ManuallyRouted="true" >
+          <ConnectorPoint PointX="7" PointY="2.0822194527314331" />
+          <ConnectorPoint PointX="9.0327384485795186" PointY="2.0822194527314331" />
+          <ConnectorPoint PointX="9.0327384485795186" PointY="4.0297823074736812" />
+          <ConnectorPoint PointX="9.9919623427244559" PointY="4.0297823074736812" />
+          <ConnectorPoint PointX="9.9919623427244559" PointY="5" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="InTouch_DBModel.Subjecst_professors" Width="1.5" PointX="11.125" PointY="8.25" />
-        <AssociationConnector Association="InTouch_DBModel.FK_Subjecst_professors_Subjects" />
+        <AssociationConnector Association="InTouch_DBModel.FK_Users_Groups" />
+        <AssociationConnector Association="InTouch_DBModel.FK_Passed_tests_Users" />
+        <AssociationConnector Association="InTouch_DBModel.FK_Posts_Users" />
+        <AssociationConnector Association="InTouch_DBModel.FK_SignalRConnections_Users" />
+        <AssociationConnector Association="InTouch_DBModel.FK_Student_answers_Users" />
         <AssociationConnector Association="InTouch_DBModel.FK_Subjecst_professors_Users" />
+        <AssociationConnector Association="InTouch_DBModel.FK_Subjects_learn_Subjects" />
+        <AssociationConnector Association="InTouch_DBModel.FK_Tests_Users" ManuallyRouted="true" >
+          <ConnectorPoint PointX="8.875" PointY="7.6036274121051726" />
+          <ConnectorPoint PointX="9.0969389548702839" PointY="7.6036274121051726" />
+          <ConnectorPoint PointX="9.0969389548702839" PointY="9.7426167635074847" />
+          <ConnectorPoint PointX="13.502245884234878" PointY="9.7426167635074847" />
+          <ConnectorPoint PointX="13.502245884234878" PointY="8.40330078125" />
+        </AssociationConnector>
+        <AssociationConnector Association="InTouch_DBModel.FK_Users_Universities" />
+        <AssociationConnector Association="InTouch_DBModel.FK_Users_User_types" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

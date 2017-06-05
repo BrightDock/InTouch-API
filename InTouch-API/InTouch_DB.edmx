@@ -24,6 +24,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Number" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="University" Type="bigint" />
         </EntityType>
         <EntityType Name="Passed_tests">
           <Key>
@@ -110,13 +111,13 @@
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="SubjectsLearn">
+        <EntityType Name="Subjects_learn">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Subject_ID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="User_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Group_ID" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Tests">
           <Key>
@@ -185,8 +186,18 @@
           <Property Name="Object" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Value" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "InTouch_DB.sys.database_firewall_rules" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <Association Name="FK_Groups_Universities">
+          <End Role="Universities" Type="Self.Universities" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Universities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="University" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Passed_tests_Question_options">
           <End Role="Question_options" Type="Self.Question_options" Multiplicity="1" />
           <End Role="Passed_tests" Type="Self.Passed_tests" Multiplicity="*" />
@@ -367,27 +378,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SubjectsLearn_Subjects">
+        <Association Name="FK_Subjects_learn_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="Subjects_learn" Type="Self.Subjects_learn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subjects_learn">
+              <PropertyRef Name="Group_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subjects_learn_Subjects">
           <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
-          <End Role="SubjectsLearn" Type="Self.SubjectsLearn" Multiplicity="*" />
+          <End Role="Subjects_learn" Type="Self.Subjects_learn" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Subjects">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="SubjectsLearn">
+            <Dependent Role="Subjects_learn">
               <PropertyRef Name="Subject_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SubjectsLearn_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="SubjectsLearn" Type="Self.SubjectsLearn" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SubjectsLearn">
-              <PropertyRef Name="User_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -477,13 +488,17 @@
           <EntitySet Name="Student_answers" EntityType="Self.Student_answers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subjecst_professors" EntityType="Self.Subjecst_professors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SubjectsLearn" EntityType="Self.SubjectsLearn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subjects_learn" EntityType="Self.Subjects_learn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tests" EntityType="Self.Tests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tests_additions" EntityType="Self.Tests_additions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Universities" EntityType="Self.Universities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_types" EntityType="Self.User_types" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users_additions" EntityType="Self.Users_additions" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Groups_Universities" Association="Self.FK_Groups_Universities">
+            <End Role="Universities" EntitySet="Universities" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
           <AssociationSet Name="FK_Passed_tests_Question_options" Association="Self.FK_Passed_tests_Question_options">
             <End Role="Question_options" EntitySet="Question_options" />
             <End Role="Passed_tests" EntitySet="Passed_tests" />
@@ -544,13 +559,13 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Subjecst_professors" EntitySet="Subjecst_professors" />
           </AssociationSet>
-          <AssociationSet Name="FK_SubjectsLearn_Subjects" Association="Self.FK_SubjectsLearn_Subjects">
-            <End Role="Subjects" EntitySet="Subjects" />
-            <End Role="SubjectsLearn" EntitySet="SubjectsLearn" />
+          <AssociationSet Name="FK_Subjects_learn_Groups" Association="Self.FK_Subjects_learn_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Subjects_learn" EntitySet="Subjects_learn" />
           </AssociationSet>
-          <AssociationSet Name="FK_SubjectsLearn_Users" Association="Self.FK_SubjectsLearn_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="SubjectsLearn" EntitySet="SubjectsLearn" />
+          <AssociationSet Name="FK_Subjects_learn_Subjects" Association="Self.FK_Subjects_learn_Subjects">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Subjects_learn" EntitySet="Subjects_learn" />
           </AssociationSet>
           <AssociationSet Name="FK_Tests_Posts" Association="Self.FK_Tests_Posts">
             <End Role="Posts" EntitySet="Posts" />
@@ -595,7 +610,10 @@
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="Number" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Groups" FromRole="Groups" ToRole="Users" />
+          <Property Name="University" Type="Int64" />
+          <NavigationProperty Name="Universities" Relationship="InTouch_DBModel.FK_Groups_Universities" FromRole="Groups" ToRole="Universities" />
+          <NavigationProperty Name="Subjects_learn" Relationship="InTouch_DBModel.FK_Subjects_learn_Groups" FromRole="Groups" ToRole="Subjects_learn" />
+          <NavigationProperty Name="Users" Relationship="InTouch_DBModel.FK_Users_Groups" FromRole="Groups" ToRole="Users" />
         </EntityType>
         <EntityType Name="Passed_tests">
           <Key>
@@ -608,8 +626,8 @@
           <Property Name="Selected_answer_ID" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Question_options" Relationship="Self.FK_Passed_tests_Question_options" FromRole="Passed_tests" ToRole="Question_options" />
           <NavigationProperty Name="Questions" Relationship="Self.FK_Passed_tests_Questions" FromRole="Passed_tests" ToRole="Questions" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Passed_tests_Users" FromRole="Passed_tests" ToRole="Users" />
           <NavigationProperty Name="Tests" Relationship="InTouch_DBModel.FK_Passed_tests_Tests" FromRole="Passed_tests" ToRole="Tests" />
+          <NavigationProperty Name="Users" Relationship="InTouch_DBModel.FK_Passed_tests_Users" FromRole="Passed_tests" ToRole="Users" />
         </EntityType>
         <EntityType Name="Post_types">
           <Key>
@@ -631,8 +649,8 @@
           <Property Name="Lection_number" Type="Int16" />
           <NavigationProperty Name="Post_types" Relationship="Self.FK_Posts_Post_types" FromRole="Posts" ToRole="Post_types" />
           <NavigationProperty Name="Subjects" Relationship="Self.FK_Posts_Subjects" FromRole="Posts" ToRole="Subjects" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Posts_Users" FromRole="Posts" ToRole="Users" />
           <NavigationProperty Name="Tests" Relationship="Self.FK_Tests_Posts" FromRole="Posts" ToRole="Tests" />
+          <NavigationProperty Name="Users" Relationship="InTouch_DBModel.FK_Posts_Users" FromRole="Posts" ToRole="Users" />
         </EntityType>
         <EntityType Name="Question_options">
           <Key>
@@ -674,7 +692,7 @@
           <Property Name="Connection_ID" Type="Guid" Nullable="false" />
           <Property Name="User_Agent" Type="Guid" Nullable="false" />
           <Property Name="Connected" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_SignalRConnections_Users" FromRole="SignalRConnections" ToRole="Users" />
+          <NavigationProperty Name="Users" Relationship="InTouch_DBModel.FK_SignalRConnections_Users" FromRole="SignalRConnections" ToRole="Users" />
         </EntityType>
         <EntityType Name="Student_answers">
           <Key>
@@ -684,7 +702,7 @@
           <Property Name="Question_ID" Type="Guid" Nullable="false" />
           <Property Name="Student_ID" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Questions" Relationship="Self.FK_Student_answers_Questions" FromRole="Student_answers" ToRole="Questions" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Student_answers_Users" FromRole="Student_answers" ToRole="Users" />
+          <NavigationProperty Name="Users" Relationship="InTouch_DBModel.FK_Student_answers_Users" FromRole="Student_answers" ToRole="Users" />
         </EntityType>
         <EntityType Name="Subjects">
           <Key>
@@ -694,19 +712,9 @@
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Posts" Relationship="Self.FK_Posts_Subjects" FromRole="Subjects" ToRole="Posts" />
-          <NavigationProperty Name="SubjectsLearn" Relationship="Self.FK_SubjectsLearn_Subjects" FromRole="Subjects" ToRole="SubjectsLearn" />
           <NavigationProperty Name="Tests" Relationship="Self.FK_Tests_Subjects" FromRole="Subjects" ToRole="Tests" />
           <NavigationProperty Name="Subjecst_professors" Relationship="InTouch_DBModel.FK_Subjecst_professors_Subjects" FromRole="Subjects" ToRole="Subjecst_professors" />
-        </EntityType>
-        <EntityType Name="SubjectsLearn">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Subject_ID" Type="Guid" Nullable="false" />
-          <Property Name="User_ID" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Subjects" Relationship="Self.FK_SubjectsLearn_Subjects" FromRole="SubjectsLearn" ToRole="Subjects" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_SubjectsLearn_Users" FromRole="SubjectsLearn" ToRole="Users" />
+          <NavigationProperty Name="Subjects_learn" Relationship="InTouch_DBModel.FK_Subjects_learn_Subjects" FromRole="Subjects" ToRole="Subjects_learn" />
         </EntityType>
         <EntityType Name="Tests">
           <Key>
@@ -725,8 +733,8 @@
           <Property Name="Date_end" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Posts" Relationship="Self.FK_Tests_Posts" FromRole="Tests" ToRole="Posts" />
           <NavigationProperty Name="Subjects" Relationship="Self.FK_Tests_Subjects" FromRole="Tests" ToRole="Subjects" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Tests_Users" FromRole="Tests" ToRole="Users" />
           <NavigationProperty Name="Passed_tests" Relationship="InTouch_DBModel.FK_Passed_tests_Tests" FromRole="Tests" ToRole="Passed_tests" />
+          <NavigationProperty Name="Users" Relationship="InTouch_DBModel.FK_Tests_Users" FromRole="Tests" ToRole="Users" />
         </EntityType>
         <EntityType Name="Tests_additions">
           <Key>
@@ -744,7 +752,8 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Logo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="About_info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Universities" FromRole="Universities" ToRole="Users" />
+          <NavigationProperty Name="Groups" Relationship="InTouch_DBModel.FK_Groups_Universities" FromRole="Universities" ToRole="Groups" />
+          <NavigationProperty Name="Users" Relationship="InTouch_DBModel.FK_Users_Universities" FromRole="Universities" ToRole="Users" />
         </EntityType>
         <EntityType Name="User_types">
           <Key>
@@ -752,36 +761,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="User_type" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Users_User_types" FromRole="User_types" ToRole="Users" />
-        </EntityType>
-        <EntityType Name="Users">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Surname" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Patronymic" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
-          <Property Name="Birthday" Type="DateTime" Precision="0" />
-          <Property Name="University_certificate" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Student_group" Type="Guid" />
-          <Property Name="Student_group_start_year" Type="DateTime" Precision="0" />
-          <Property Name="University" Type="Int64" Nullable="false" />
-          <Property Name="Avatar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="User_type" Type="Int32" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="60" FixedLength="true" Unicode="true" />
-          <Property Name="IP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Groups" Relationship="Self.FK_Users_Groups" FromRole="Users" ToRole="Groups" />
-          <NavigationProperty Name="Passed_tests" Relationship="Self.FK_Passed_tests_Users" FromRole="Users" ToRole="Passed_tests" />
-          <NavigationProperty Name="Posts" Relationship="Self.FK_Posts_Users" FromRole="Users" ToRole="Posts" />
-          <NavigationProperty Name="SignalRConnections" Relationship="Self.FK_SignalRConnections_Users" FromRole="Users" ToRole="SignalRConnections" />
-          <NavigationProperty Name="Student_answers" Relationship="Self.FK_Student_answers_Users" FromRole="Users" ToRole="Student_answers" />
-          <NavigationProperty Name="SubjectsLearn" Relationship="Self.FK_SubjectsLearn_Users" FromRole="Users" ToRole="SubjectsLearn" />
-          <NavigationProperty Name="Tests" Relationship="Self.FK_Tests_Users" FromRole="Users" ToRole="Tests" />
-          <NavigationProperty Name="Universities" Relationship="Self.FK_Users_Universities" FromRole="Users" ToRole="Universities" />
-          <NavigationProperty Name="User_types" Relationship="Self.FK_Users_User_types" FromRole="Users" ToRole="User_types" />
-          <NavigationProperty Name="Subjecst_professors" Relationship="InTouch_DBModel.FK_Subjecst_professors_Users" FromRole="Users" ToRole="Subjecst_professors" />
+          <NavigationProperty Name="Users" Relationship="InTouch_DBModel.FK_Users_User_types" FromRole="User_types" ToRole="Users" />
         </EntityType>
         <EntityType Name="Users_additions">
           <Key>
@@ -800,18 +780,6 @@
             </Principal>
             <Dependent Role="Questions">
               <PropertyRef Name="Difficulty" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Users_Groups">
-          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
-          <End Role="Users" Type="Self.Users" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Groups">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Users">
-              <PropertyRef Name="Student_group" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -839,18 +807,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Passed_tests_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Passed_tests" Type="Self.Passed_tests" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Passed_tests">
-              <PropertyRef Name="User_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Posts_Post_types">
           <End Role="Post_types" Type="Self.Post_types" Multiplicity="1" />
           <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
@@ -872,18 +828,6 @@
             </Principal>
             <Dependent Role="Posts">
               <PropertyRef Name="Subject_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Posts_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Posts">
-              <PropertyRef Name="Author_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -935,42 +879,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SignalRConnections_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="SignalRConnections" Type="Self.SignalRConnections" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SignalRConnections">
-              <PropertyRef Name="User_Agent" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Student_answers_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Student_answers" Type="Self.Student_answers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Student_answers">
-              <PropertyRef Name="Student_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SubjectsLearn_Subjects">
-          <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
-          <End Role="SubjectsLearn" Type="Self.SubjectsLearn" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Subjects">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SubjectsLearn">
-              <PropertyRef Name="Subject_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Tests_Subjects">
           <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
           <End Role="Tests" Type="Self.Tests" Multiplicity="*" />
@@ -980,54 +888,6 @@
             </Principal>
             <Dependent Role="Tests">
               <PropertyRef Name="Subject" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SubjectsLearn_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="SubjectsLearn" Type="Self.SubjectsLearn" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SubjectsLearn">
-              <PropertyRef Name="User_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tests_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Tests" Type="Self.Tests" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Tests">
-              <PropertyRef Name="Professor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Users_Universities">
-          <End Role="Universities" Type="Self.Universities" Multiplicity="1" />
-          <End Role="Users" Type="Self.Users" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Universities">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Users">
-              <PropertyRef Name="University" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Users_User_types">
-          <End Role="User_types" Type="Self.User_types" Multiplicity="1" />
-          <End Role="Users" Type="Self.Users" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User_types">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Users">
-              <PropertyRef Name="User_type" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1043,20 +903,14 @@
           <EntitySet Name="SignalRConnections" EntityType="Self.SignalRConnections" />
           <EntitySet Name="Student_answers" EntityType="Self.Student_answers" />
           <EntitySet Name="Subjects" EntityType="Self.Subjects" />
-          <EntitySet Name="SubjectsLearn" EntityType="Self.SubjectsLearn" />
           <EntitySet Name="Tests" EntityType="Self.Tests" />
           <EntitySet Name="Tests_additions" EntityType="Self.Tests_additions" />
           <EntitySet Name="Universities" EntityType="Self.Universities" />
           <EntitySet Name="User_types" EntityType="Self.User_types" />
-          <EntitySet Name="Users" EntityType="Self.Users" />
           <EntitySet Name="Users_additions" EntityType="Self.Users_additions" />
           <AssociationSet Name="FK_Questions_Difficulty_of_questions" Association="Self.FK_Questions_Difficulty_of_questions">
             <End Role="Difficulty_of_questions" EntitySet="Difficulty_of_questions" />
             <End Role="Questions" EntitySet="Questions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Users_Groups" Association="Self.FK_Users_Groups">
-            <End Role="Groups" EntitySet="Groups" />
-            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
           <AssociationSet Name="FK_Passed_tests_Question_options" Association="Self.FK_Passed_tests_Question_options">
             <End Role="Question_options" EntitySet="Question_options" />
@@ -1066,20 +920,12 @@
             <End Role="Questions" EntitySet="Questions" />
             <End Role="Passed_tests" EntitySet="Passed_tests" />
           </AssociationSet>
-          <AssociationSet Name="FK_Passed_tests_Users" Association="Self.FK_Passed_tests_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Passed_tests" EntitySet="Passed_tests" />
-          </AssociationSet>
           <AssociationSet Name="FK_Posts_Post_types" Association="Self.FK_Posts_Post_types">
             <End Role="Post_types" EntitySet="Post_types" />
             <End Role="Posts" EntitySet="Posts" />
           </AssociationSet>
           <AssociationSet Name="FK_Posts_Subjects" Association="Self.FK_Posts_Subjects">
             <End Role="Subjects" EntitySet="Subjects" />
-            <End Role="Posts" EntitySet="Posts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Posts_Users" Association="Self.FK_Posts_Users">
-            <End Role="Users" EntitySet="Users" />
             <End Role="Posts" EntitySet="Posts" />
           </AssociationSet>
           <AssociationSet Name="FK_Tests_Posts" Association="Self.FK_Tests_Posts">
@@ -1098,37 +944,9 @@
             <End Role="Questions" EntitySet="Questions" />
             <End Role="Student_answers" EntitySet="Student_answers" />
           </AssociationSet>
-          <AssociationSet Name="FK_SignalRConnections_Users" Association="Self.FK_SignalRConnections_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="SignalRConnections" EntitySet="SignalRConnections" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Student_answers_Users" Association="Self.FK_Student_answers_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Student_answers" EntitySet="Student_answers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SubjectsLearn_Subjects" Association="Self.FK_SubjectsLearn_Subjects">
-            <End Role="Subjects" EntitySet="Subjects" />
-            <End Role="SubjectsLearn" EntitySet="SubjectsLearn" />
-          </AssociationSet>
           <AssociationSet Name="FK_Tests_Subjects" Association="Self.FK_Tests_Subjects">
             <End Role="Subjects" EntitySet="Subjects" />
             <End Role="Tests" EntitySet="Tests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SubjectsLearn_Users" Association="Self.FK_SubjectsLearn_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="SubjectsLearn" EntitySet="SubjectsLearn" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tests_Users" Association="Self.FK_Tests_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Tests" EntitySet="Tests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Users_Universities" Association="Self.FK_Users_Universities">
-            <End Role="Universities" EntitySet="Universities" />
-            <End Role="Users" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Users_User_types" Association="Self.FK_Users_User_types">
-            <End Role="User_types" EntitySet="User_types" />
-            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
           <EntitySet Name="C__RefactorLog" EntityType="InTouch_DBModel.C__RefactorLog" />
           <AssociationSet Name="FK_Passed_tests_Tests" Association="InTouch_DBModel.FK_Passed_tests_Tests">
@@ -1140,9 +958,55 @@
             <End Role="Subjects" EntitySet="Subjects" />
             <End Role="Subjecst_professors" EntitySet="Subjecst_professors" />
           </AssociationSet>
+          <AssociationSet Name="FK_Groups_Universities" Association="InTouch_DBModel.FK_Groups_Universities">
+            <End Role="Universities" EntitySet="Universities" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <EntitySet Name="Subjects_learn" EntityType="InTouch_DBModel.Subjects_learn" />
+          <EntitySet Name="Users" EntityType="InTouch_DBModel.Users" />
+          <AssociationSet Name="FK_Subjects_learn_Groups" Association="InTouch_DBModel.FK_Subjects_learn_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Subjects_learn" EntitySet="Subjects_learn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Groups" Association="InTouch_DBModel.FK_Users_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Passed_tests_Users" Association="InTouch_DBModel.FK_Passed_tests_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Passed_tests" EntitySet="Passed_tests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Posts_Users" Association="InTouch_DBModel.FK_Posts_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Posts" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SignalRConnections_Users" Association="InTouch_DBModel.FK_SignalRConnections_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SignalRConnections" EntitySet="SignalRConnections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_answers_Users" Association="InTouch_DBModel.FK_Student_answers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Student_answers" EntitySet="Student_answers" />
+          </AssociationSet>
           <AssociationSet Name="FK_Subjecst_professors_Users" Association="InTouch_DBModel.FK_Subjecst_professors_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Subjecst_professors" EntitySet="Subjecst_professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subjects_learn_Subjects" Association="InTouch_DBModel.FK_Subjects_learn_Subjects">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Subjects_learn" EntitySet="Subjects_learn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tests_Users" Association="InTouch_DBModel.FK_Tests_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Tests" EntitySet="Tests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Universities" Association="InTouch_DBModel.FK_Users_Universities">
+            <End Role="Universities" EntitySet="Universities" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_User_types" Association="InTouch_DBModel.FK_Users_User_types">
+            <End Role="User_types" EntitySet="User_types" />
+            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="C__RefactorLog">
@@ -1185,6 +1049,128 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Groups_Universities">
+          <End Type="InTouch_DBModel.Universities" Role="Universities" Multiplicity="0..1" />
+          <End Type="InTouch_DBModel.Groups" Role="Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Universities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="University" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Subjects_learn">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Subject_ID" Type="Guid" Nullable="false" />
+          <Property Name="Group_ID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Groups" Relationship="InTouch_DBModel.FK_Subjects_learn_Groups" FromRole="Subjects_learn" ToRole="Groups" />
+          <NavigationProperty Name="Subjects" Relationship="InTouch_DBModel.FK_Subjects_learn_Subjects" FromRole="Subjects_learn" ToRole="Subjects" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <Property Name="University_certificate" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Student_group" Type="Guid" />
+          <Property Name="Student_group_start_year" Type="DateTime" Precision="0" />
+          <Property Name="University" Type="Int64" Nullable="false" />
+          <Property Name="Avatar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="User_type" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="60" FixedLength="true" Unicode="true" />
+          <Property Name="IP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Groups" Relationship="InTouch_DBModel.FK_Users_Groups" FromRole="Users" ToRole="Groups" />
+          <NavigationProperty Name="Passed_tests" Relationship="InTouch_DBModel.FK_Passed_tests_Users" FromRole="Users" ToRole="Passed_tests" />
+          <NavigationProperty Name="Posts" Relationship="InTouch_DBModel.FK_Posts_Users" FromRole="Users" ToRole="Posts" />
+          <NavigationProperty Name="SignalRConnections" Relationship="InTouch_DBModel.FK_SignalRConnections_Users" FromRole="Users" ToRole="SignalRConnections" />
+          <NavigationProperty Name="Student_answers" Relationship="InTouch_DBModel.FK_Student_answers_Users" FromRole="Users" ToRole="Student_answers" />
+          <NavigationProperty Name="Subjecst_professors" Relationship="InTouch_DBModel.FK_Subjecst_professors_Users" FromRole="Users" ToRole="Subjecst_professors" />
+          <NavigationProperty Name="Tests" Relationship="InTouch_DBModel.FK_Tests_Users" FromRole="Users" ToRole="Tests" />
+          <NavigationProperty Name="Universities" Relationship="InTouch_DBModel.FK_Users_Universities" FromRole="Users" ToRole="Universities" />
+          <NavigationProperty Name="User_types" Relationship="InTouch_DBModel.FK_Users_User_types" FromRole="Users" ToRole="User_types" />
+        </EntityType>
+        <Association Name="FK_Subjects_learn_Groups">
+          <End Type="InTouch_DBModel.Groups" Role="Groups" Multiplicity="1" />
+          <End Type="InTouch_DBModel.Subjects_learn" Role="Subjects_learn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subjects_learn">
+              <PropertyRef Name="Group_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Groups">
+          <End Type="InTouch_DBModel.Groups" Role="Groups" Multiplicity="0..1" />
+          <End Type="InTouch_DBModel.Users" Role="Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Student_group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Passed_tests_Users">
+          <End Type="InTouch_DBModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="InTouch_DBModel.Passed_tests" Role="Passed_tests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Passed_tests">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Posts_Users">
+          <End Type="InTouch_DBModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="InTouch_DBModel.Posts" Role="Posts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Posts">
+              <PropertyRef Name="Author_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SignalRConnections_Users">
+          <End Type="InTouch_DBModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="InTouch_DBModel.SignalRConnections" Role="SignalRConnections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SignalRConnections">
+              <PropertyRef Name="User_Agent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_answers_Users">
+          <End Type="InTouch_DBModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="InTouch_DBModel.Student_answers" Role="Student_answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Student_answers">
+              <PropertyRef Name="Student_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Subjecst_professors_Users">
           <End Type="InTouch_DBModel.Users" Role="Users" Multiplicity="1" />
           <End Type="InTouch_DBModel.Subjecst_professors" Role="Subjecst_professors" Multiplicity="*" />
@@ -1194,6 +1180,54 @@
             </Principal>
             <Dependent Role="Subjecst_professors">
               <PropertyRef Name="Professor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subjects_learn_Subjects">
+          <End Type="InTouch_DBModel.Subjects" Role="Subjects" Multiplicity="1" />
+          <End Type="InTouch_DBModel.Subjects_learn" Role="Subjects_learn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subjects_learn">
+              <PropertyRef Name="Subject_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tests_Users">
+          <End Type="InTouch_DBModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="InTouch_DBModel.Tests" Role="Tests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tests">
+              <PropertyRef Name="Professor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Universities">
+          <End Type="InTouch_DBModel.Universities" Role="Universities" Multiplicity="1" />
+          <End Type="InTouch_DBModel.Users" Role="Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Universities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="University" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_User_types">
+          <End Type="InTouch_DBModel.User_types" Role="User_types" Multiplicity="1" />
+          <End Type="InTouch_DBModel.Users" Role="Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_types">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="User_type" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1214,6 +1248,7 @@
           <EntitySetMapping Name="Groups">
             <EntityTypeMapping TypeName="InTouch_DBModel.Groups">
               <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="University" ColumnName="University" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
               </MappingFragment>
@@ -1305,15 +1340,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SubjectsLearn">
-            <EntityTypeMapping TypeName="InTouch_DBModel.SubjectsLearn">
-              <MappingFragment StoreEntitySet="SubjectsLearn">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Subject_ID" ColumnName="Subject_ID" />
-                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Tests">
             <EntityTypeMapping TypeName="InTouch_DBModel.Tests">
               <MappingFragment StoreEntitySet="Tests">
@@ -1358,26 +1384,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="InTouch_DBModel.Users">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="University_certificate" ColumnName="University_certificate" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Student_group" ColumnName="Student_group" />
-                <ScalarProperty Name="Student_group_start_year" ColumnName="Student_group_start_year" />
-                <ScalarProperty Name="University" ColumnName="University" />
-                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
-                <ScalarProperty Name="User_type" ColumnName="User_type" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="IP" ColumnName="IP" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Users_additions">
             <EntityTypeMapping TypeName="InTouch_DBModel.Users_additions">
               <MappingFragment StoreEntitySet="Users_additions">
@@ -1399,6 +1405,35 @@
               <MappingFragment StoreEntitySet="Subjecst_professors">
                 <ScalarProperty Name="Professor" ColumnName="Professor" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subjects_learn">
+            <EntityTypeMapping TypeName="InTouch_DBModel.Subjects_learn">
+              <MappingFragment StoreEntitySet="Subjects_learn">
+                <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
+                <ScalarProperty Name="Subject_ID" ColumnName="Subject_ID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="InTouch_DBModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="User_type" ColumnName="User_type" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="University" ColumnName="University" />
+                <ScalarProperty Name="Student_group_start_year" ColumnName="Student_group_start_year" />
+                <ScalarProperty Name="Student_group" ColumnName="Student_group" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="University_certificate" ColumnName="University_certificate" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -21,9 +21,8 @@ namespace InTouch_WEBClient.Models
             this.Posts = new HashSet<Posts>();
             this.SignalRConnections = new HashSet<SignalRConnections>();
             this.Student_answers = new HashSet<Student_answers>();
-            this.SubjectsLearn = new HashSet<SubjectsLearn>();
-            this.Tests = new HashSet<Tests>();
             this.Subjecst_professors = new HashSet<Subjecst_professors>();
+            this.Tests = new HashSet<Tests>();
         }
     
         public System.Guid Id { get; set; }
@@ -51,12 +50,10 @@ namespace InTouch_WEBClient.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Student_answers> Student_answers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubjectsLearn> SubjectsLearn { get; set; }
+        public virtual ICollection<Subjecst_professors> Subjecst_professors { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tests> Tests { get; set; }
         public virtual Universities Universities { get; set; }
         public virtual User_types User_types { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Subjecst_professors> Subjecst_professors { get; set; }
     }
 }

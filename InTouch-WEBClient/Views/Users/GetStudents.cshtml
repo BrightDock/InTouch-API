@@ -6,31 +6,72 @@
 
 <header></header>
 <content>
-    <h4>@ViewBag.usersCount</h4>
     @foreach (var item in Model.ToList())
     {
         <div>
-            <span>
-                @item.User.Name
-            </span>
-            <span>
-                @item.User.Surname
-            </span>
-            <span>
-                @item.User.Student_group
-            </span>
-            <span>
-                @item.University.Name
-            </span>
-            <ul>
-                @foreach (var subject in item.SubjectsInLearn)
-                {
-                    <li>
-                        @subject.Subjects.Name
-                    </li>
-                }
-            </ul>
+            <h4>
+                Ф.И.О.:
+                <span>
+                    @item.User.Surname
+                </span>
+                <span>
+                    @item.User.Name
+                </span>
+                <span>
+                    @item.User.Patronymic
+                </span>
+            </h4>
+            <p>
+                Университет: @item.University.Name
+            </p>
+            <p>
+                Группа: @item.Group.Number
+            </p>
+            <div class="">
+                <span>
+                    Предметы (@item.SubjectsInLearn.Count()):
+                </span>
+                <ul>
+                    @foreach (var subject in item.SubjectsInLearn)
+                    {
+                        <li>@subject.Subjects.Name</li>
+                    }
+                </ul>
+            </div>
+            <div class="">
+                <span>
+                    Тесты: (@item.AllTests.Count()):
+                </span>
+                <ul>
+                    @foreach (var test in item.AllTests)
+                    {
+                        <li>
+                            <b>Название: @test.Name</b>
+                            <p>Предмет: @test.Subjects.Name</p>
+                            <p>
+                                <label>Дата начала: @test.Date_start</label>
+                                <label>Дата окнчания: @test.Date_end</label>
+                            </p>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="">
+                <span>
+                    Пройдные тесты: (@item.Passed_tests.Count()):
+                </span>
+                <ul>
+                    @foreach (var test in item.Passed_tests)
+                    {
+                        <li>
+                            <b>Название: @test.Tests.Name</b>
+                            <label>Предмет: @test.Tests.Subjects</label>
+                        </li>
+                    }
+                </ul>
+            </div>
         </div>
+
     }
 </content>
 <footer></footer>

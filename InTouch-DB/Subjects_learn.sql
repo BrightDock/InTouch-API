@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Subjects_learn]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT NEWID(), 
+    [Subject_ID] UNIQUEIDENTIFIER NOT NULL, 
+    [Group_ID] UNIQUEIDENTIFIER NOT NULL, 
+    CONSTRAINT [FK_Subjects_learn_Subjects] FOREIGN KEY (Subject_ID) REFERENCES Subjects(Id), 
+    CONSTRAINT [FK_Subjects_learn_Groups] FOREIGN KEY ([Group_ID]) REFERENCES Groups(Id)
+)

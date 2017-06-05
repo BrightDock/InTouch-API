@@ -16,23 +16,23 @@
     @Styles.Render("~/Content/less")
 </head>
 <body>
-    <header class="row">
-        <div class="col-3 logo-wrapper">
+    <div class="body-content col-sm-12 col-12 col-md-12 col-lg-10 col-xl-10 col-xxl-7 wrapper">
+        <header class="row">
+            <div class="col-3 logo-wrapper">
 
-        </div>
-        <div class="col-9 menu-wrapper">
-            <nav class="menu">
-                <a href=""><i class="fa fa-home" aria-hidden="true"></i><span>Главная</span></a>
-                <a href=""><i class="fa fa-newspaper-o" aria-hidden="true"></i><span>Новости</span></a>
-                <a href=""><i class="fa fa-info-circle" aria-hidden="true"></i><span>О нас</span></a>
-                <a href=""><i class="fa fa-rss" aria-hidden="true"></i><span>Контакты</span></a>
-                <a href=""><i class="fa fa-sign-in" aria-hidden="true"></i><span>Авторизация</span></a>
-            </nav>
-        </div>
-    </header>
-    @RenderBody()
-    <footer>
-
-    </footer>
+            </div>
+            <div class="col-9 menu-wrapper">
+                <nav class="menu">
+                    <a href=""><i class="fa fa-home" aria-hidden="true"></i><span>Главная</span></a>
+                    <a href=""><i class="fa fa-newspaper-o" aria-hidden="true"></i><span>Новости</span></a>
+                    <a href=""><i class="fa fa-info-circle" aria-hidden="true"></i><span>О нас</span></a>
+                    <a href=""><i class="fa fa-rss" aria-hidden="true"></i><span>Контакты</span></a>
+                    <a href=""><i class="fa fa-sign-in" aria-hidden="true"></i><span>Авторизация</span></a>
+                </nav>
+            </div>
+        </header>
+        @RenderBody()
+        <footer></footer>
+    </div>
 </body>
 </html>

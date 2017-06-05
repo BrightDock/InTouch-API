@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -13,7 +14,7 @@ namespace InTouch_WEBClient.Controllers
     {
         HttpClient client;
         //The URL of the WEB API Service
-        string url = "http://diploma-intouchapi.azurewebsites.net/api/";
+        string url = "http://localhost:51533/api/";
         // GET: Users
         public UsersController()
         {
@@ -31,60 +32,86 @@ namespace InTouch_WEBClient.Controllers
         [HttpGet]
         public async Task<ActionResult> GetUsers()
         {
-            HttpResponseMessage responseMessage = await client.GetAsync(url + "users/GetUsers/");
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
-                
-                var jsonSettings = new JsonSerializerSettings();
-                jsonSettings.NullValueHandling = NullValueHandling.Include;
-                var Users = JsonConvert.DeserializeObject<List<UserUniversity>>(responseData, jsonSettings);
+                HttpResponseMessage responseMessage = await client.GetAsync(url + "users/GetUsers/");
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-                ViewBag.usersCount = responseData;
+                    var jsonSettings = new JsonSerializerSettings();
+                    jsonSettings.NullValueHandling = NullValueHandling.Include;
+                    var Users = JsonConvert.DeserializeObject<List<UserUniversity>>(responseData, jsonSettings);
 
-                return PartialView(Users);
+                    ViewBag.usersCount = responseData;
+
+                    return PartialView(Users);
+                }
+                return View("Error", responseMessage);
             }
-            return View("Error", responseMessage);
+            catch (Exception ex) {
+                return View("Error", ex);
+            }
         }
 
         [Route("GetStudents")]
         [HttpGet]
-        public async Task<ActionResult> GetStudents()
+        public async Task<ActionResult> GetStudents(string userID = "")
         {
-            HttpResponseMessage responseMessage = await client.GetAsync(url + "users/GetStudents/");
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                List<string> param = new List<string>();
+                foreach (var parameterKey in Request.QueryString.Keys)
+                {
+                    param.Add(parameterKey.ToString() + '=' + Request.Params.Get(parameterKey.ToString().ToString()));
+                }
+                HttpResponseMessage responseMessage = await client.GetAsync(string.Format("{0}{1}/?{2}/", url, "users/GetStudents", 
+                    string.Join("&", param)));
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-                var jsonSettings = new JsonSerializerSettings();
-                jsonSettings.NullValueHandling = NullValueHandling.Include;
-                var Users = JsonConvert.DeserializeObject<List<UserGroupUniversity>>(responseData, jsonSettings);
+                    var jsonSettings = new JsonSerializerSettings();
+                    jsonSettings.NullValueHandling = NullValueHandling.Include;
+                    var Users = JsonConvert.DeserializeObject<List<UserGroupUniversity>>(responseData, jsonSettings);
 
-                ViewBag.usersCount = responseData;
+                    ViewBag.param = Users.Count;
 
-                return PartialView(Users);
+                    return PartialView(Users);
+                }
+                return View("Error", responseMessage);
             }
-            return View("Error");
+            catch (Exception ex)
+            {
+                return View("Error", ex);
+            }
         }
 
         [Route("GetProfessors")]
         [HttpGet]
         public async Task<ActionResult> GetProfessors()
         {
-            HttpResponseMessage responseMessage = await client.GetAsync(url + "users/GetProfessors/");
+            try
+            {
+                HttpResponseMessage responseMessage = await client.GetAsync(url + "users/GetProfessors/");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
                 var jsonSettings = new JsonSerializerSettings();
                 jsonSettings.NullValueHandling = NullValueHandling.Include;
-                var Users = JsonConvert.DeserializeObject<List<Subjecst_professors>>(responseData, jsonSettings);
+                var Users = JsonConvert.DeserializeObject<List<ProfessorSubjects>>(responseData, jsonSettings);
 
                 ViewBag.usersCount = responseData;
 
                 return PartialView(Users);
+                }
+                return View("Error", responseMessage);
             }
-            return View("Error");
+            catch (Exception ex)
+            {
+                return View("Error", ex);
+            }
         }
     }
 }

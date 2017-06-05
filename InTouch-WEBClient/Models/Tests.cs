@@ -34,8 +34,8 @@ namespace InTouch_WEBClient.Models
     
         public virtual Posts Posts { get; set; }
         public virtual Subjects Subjects { get; set; }
-        public virtual Users Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Passed_tests> Passed_tests { get; set; }
+        public virtual Users Users { get; set; }
     }
 }

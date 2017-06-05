@@ -22,7 +22,7 @@ namespace InTouch_API
     
         public virtual Question_options Question_options { get; set; }
         public virtual Questions Questions { get; set; }
-        public virtual Users Users { get; set; }
         public virtual Tests Tests { get; set; }
+        public virtual Users Users { get; set; }
     }
 }

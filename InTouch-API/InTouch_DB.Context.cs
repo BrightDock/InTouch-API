@@ -36,14 +36,14 @@ namespace InTouch_API
         public virtual DbSet<SignalRConnections> SignalRConnections { get; set; }
         public virtual DbSet<Student_answers> Student_answers { get; set; }
         public virtual DbSet<Subjects> Subjects { get; set; }
-        public virtual DbSet<SubjectsLearn> SubjectsLearn { get; set; }
         public virtual DbSet<Tests> Tests { get; set; }
         public virtual DbSet<Tests_additions> Tests_additions { get; set; }
         public virtual DbSet<Universities> Universities { get; set; }
         public virtual DbSet<User_types> User_types { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Users_additions> Users_additions { get; set; }
         public virtual DbSet<C__RefactorLog> C__RefactorLog { get; set; }
         public virtual DbSet<Subjecst_professors> Subjecst_professors { get; set; }
+        public virtual DbSet<Subjects_learn> Subjects_learn { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
     }
 }
