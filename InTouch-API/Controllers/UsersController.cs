@@ -54,8 +54,8 @@ namespace InTouch_API.Controllers
                     SubjectsInLearn = student.Student.Student.Groups.Subjects_learn,
                     University = student.Student.University,
                     AllTests = Db.Tests.Where(test => 
-                    test.Subjects.Subjects_learn.Intersect(student.Student.Student.Groups.Subjects_learn
-                        .Where(subject => subject.Group_ID == student.Group.Id)).Count() > 0),
+                    test.Subjects.Subjects_learn.Intersect(student.Student.Student.Groups.Subjects_learn    // find all subjects that relate to student 
+                        .Where(subject => subject.Group_ID == student.Group.Id)).Count() > 0),              // and find all test related to them
                     Passed_tests = student.Student.Student.Passed_tests
                 }).Where(student => student.User.Id == uID || userID.Equals(null));
             return usersList.ToList();
